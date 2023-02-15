@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/plants")
@@ -46,7 +47,7 @@ public class PlantController {
             List<PlantImage> plantImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("user").getId());
             List<PlantImage> plantKeeperImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("keeper").getId());
             return PlantMapper.plantToDto(plant, plantImages, plantKeeperImages);
-        }).toList();
+        }).collect(Collectors.toList());
 
         return new ResponseEntity<>(plantResponseDTOList, HttpStatus.OK);
     }
