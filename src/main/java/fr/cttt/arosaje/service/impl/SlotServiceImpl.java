@@ -29,8 +29,8 @@ public class SlotServiceImpl implements SlotService {
     }
 
     @Override
-    public List<Slot> getSlotsByGuardian(Long guardianId) {
-        return slotRepository.findAllByGuardianId(guardianId).orElseThrow(() -> new ElementNotFoundException("Any slots found !"));
+    public List<Slot> getSlotsByKeeper(Long keeperId) {
+        return slotRepository.findAllByKeeperId(keeperId).orElseThrow(() -> new ElementNotFoundException("Any slots found !"));
     }
 
     @Override
@@ -39,22 +39,22 @@ public class SlotServiceImpl implements SlotService {
     }
 
     @Override
-    public void saveSlot(SlotDTO slotDTO, User user, User guardian) {
+    public void saveSlot(SlotDTO slotDTO, User user, User keeper) {
         Slot slot = new Slot();
         slot.setStartDate(slotDTO.getStartDate());
         slot.setEndDate(slotDTO.getEndDate());
         slot.setUser(user);
-        slot.setGuardian(guardian);
+        slot.setKeeper(keeper);
         slotRepository.save(slot);
     }
 
     @Override
-    public void updateSlot(Long id, SlotDTO slotDTO, User user, User guardian) {
+    public void updateSlot(Long id, SlotDTO slotDTO, User user, User keeper) {
         Slot slot = this.getSlot(id);
         slot.setStartDate((slotDTO.getStartDate() == null) ? slot.getStartDate() : slotDTO.getStartDate());
         slot.setEndDate((slotDTO.getEndDate() == null) ? slot.getEndDate() : slotDTO.getEndDate());
         slot.setUser((user == null) ? slot.getUser() : user);
-        slot.setGuardian((guardian == null) ? slot.getGuardian() : guardian);
+        slot.setKeeper((keeper == null) ? slot.getKeeper() : keeper);
         slotRepository.save(slot);
     }
 

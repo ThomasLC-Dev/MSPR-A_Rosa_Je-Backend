@@ -24,12 +24,12 @@ public class SlotController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Slot>> getSlots(@RequestParam(name = "user", required = false) Optional<Long> userId, @RequestParam(name = "guardian", required = false) Optional<Long> guardianId){
+    public ResponseEntity<List<Slot>> getSlots(@RequestParam(name = "user", required = false) Optional<Long> userId, @RequestParam(name = "keeper", required = false) Optional<Long> keeperId){
         if(userId.isPresent()){
             return new ResponseEntity<>(slotService.getSlotsByUser(userId.get()), HttpStatus.OK);
         }
-        else if(guardianId.isPresent()){
-            return new ResponseEntity<>(slotService.getSlotsByGuardian(guardianId.get()), HttpStatus.OK);
+        else if(keeperId.isPresent()){
+            return new ResponseEntity<>(slotService.getSlotsByKeeper(keeperId.get()), HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(slotService.getSlots(), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class SlotController {
     @PostMapping
     public ResponseEntity<?> createSlot(@RequestBody SlotDTO slotDTO){
         User user = userService.getUser(slotDTO.getUserId());
-        User guardian = (slotDTO.getUserId() == null) ? null : userService.getUser(slotDTO.getGuardianId());
+        User guardian = (slotDTO.getUserId() == null) ? null : userService.getUser(slotDTO.getKeeperId());
         slotService.saveSlot(slotDTO, user, guardian);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -52,7 +52,7 @@ public class SlotController {
     @PutMapping("/{slotId}")
     public ResponseEntity<?> updateSlot(@PathVariable(name = "slotId") Long id, @RequestBody SlotDTO slotDTO){
         User user = (slotDTO.getUserId() == null) ? null : userService.getUser(slotDTO.getUserId());
-        User guardian = (slotDTO.getGuardianId() == null) ? null : userService.getUser(slotDTO.getGuardianId());
+        User guardian = (slotDTO.getKeeperId() == null) ? null : userService.getUser(slotDTO.getKeeperId());
         slotService.updateSlot(id, slotDTO, user, guardian);
         return new ResponseEntity<>(HttpStatus.OK);
     }

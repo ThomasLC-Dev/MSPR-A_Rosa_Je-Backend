@@ -23,15 +23,15 @@ public class User {
     private String firstName;
     @Column(name = "email")
     private String email;
+    @JsonIgnore
     @Column(name = "password")
     private String password;
     @Column(name = "status")
     private Boolean status;
+    @Column(name = "imageUrl")
+    private String imageUrl;
     @OneToOne(mappedBy = "user")
     private Address address;
-    @OneToOne(mappedBy = "image")
-    private AttachmentFile attachmentFile;
-    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles;
     @JsonIgnore
@@ -41,6 +41,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Slot> userSlots;
     @JsonIgnore
-    @OneToMany(mappedBy = "guardian")
-    private List<Slot> guardianSlots;
+    @OneToMany(mappedBy = "keeper")
+    private List<Slot> keeperSlots;
 }

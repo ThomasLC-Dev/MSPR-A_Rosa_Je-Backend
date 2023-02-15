@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class PlantDTO {
     private String name;
     private String description;
-    private String imageUrl;
     private String advises;
     private Long userId;
 }

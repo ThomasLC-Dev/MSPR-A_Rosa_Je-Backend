@@ -38,7 +38,6 @@ public class PlantServiceImpl implements PlantService {
         Plant plant = new Plant();
         plant.setName(plantDTO.getName());
         plant.setDescription(plantDTO.getDescription());
-        plant.setImageUrl(plantDTO.getImageUrl());
         plant.setAdvises(plantDTO.getAdvises());
         plant.setUser(user);
         plantRepository.save(plant);
@@ -49,7 +48,6 @@ public class PlantServiceImpl implements PlantService {
         Plant plant = this.getPlant(id);
         plant.setName((plantDTO.getName() == null) ? plant.getName() : plantDTO.getName());
         plant.setDescription((plantDTO.getDescription() == null) ? plant.getDescription() : plantDTO.getDescription());
-        plant.setImageUrl((plantDTO.getImageUrl() == null) ? plant.getImageUrl() : plantDTO.getImageUrl());
         plant.setAdvises((plantDTO.getAdvises() == null) ? plant.getAdvises() : plantDTO.getAdvises());
         plant.setUser((user == null) ? plant.getUser() : user);
         plantRepository.save(plant);

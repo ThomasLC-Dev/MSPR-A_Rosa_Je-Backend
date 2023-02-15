@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,11 +20,11 @@ public class Plant {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "image_url")
-    private String imageUrl;
     @Column(name = "problems")
     private String advises;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @OneToMany(mappedBy = "plant")
+    private List<PlantImage> plantImages;
 }

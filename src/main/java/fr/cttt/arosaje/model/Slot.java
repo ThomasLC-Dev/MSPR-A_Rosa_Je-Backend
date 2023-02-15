@@ -24,6 +24,6 @@ public class Slot {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "guardian_id", referencedColumnName = "id")
-    private User guardian;
+    @JoinColumn(name = "keeper_id", referencedColumnName = "id")
+    private User keeper;
 }

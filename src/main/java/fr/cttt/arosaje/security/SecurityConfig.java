@@ -28,7 +28,8 @@ public class SecurityConfig {
                 .and()
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/auth/register", "/auth/forgot-password/**").permitAll()
+                        .antMatchers("/api/attachment-files/upload").authenticated()
+                        .antMatchers("/auth/register", "/auth/forgot-password/**", "/api/attachment-files/**").permitAll()
                         .antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs", "/webjars/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilter(new JWTAuthentificationFilter(authenticationManager, userRepository))

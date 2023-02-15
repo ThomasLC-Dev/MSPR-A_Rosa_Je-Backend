@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface SlotRepository extends JpaRepository<Slot, Long> {
     Optional<List<Slot>> findAllByUserId(Long userId);
-    Optional<List<Slot>> findAllByGuardianId(Long guardianId);
+    Optional<List<Slot>> findAllByKeeperId(Long keeperId);
 }

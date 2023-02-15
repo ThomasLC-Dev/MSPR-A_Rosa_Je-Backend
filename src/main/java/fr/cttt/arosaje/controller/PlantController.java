@@ -1,9 +1,14 @@
 package fr.cttt.arosaje.controller;
 
+import fr.cttt.arosaje.mapper.PlantMapper;
 import fr.cttt.arosaje.model.Plant;
+import fr.cttt.arosaje.model.PlantImage;
 import fr.cttt.arosaje.model.User;
 import fr.cttt.arosaje.model.dto.PlantDTO;
+import fr.cttt.arosaje.model.dto.PlantResponseDTO;
+import fr.cttt.arosaje.service.PlantImageService;
 import fr.cttt.arosaje.service.PlantService;
+import fr.cttt.arosaje.service.RoleService;
 import fr.cttt.arosaje.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,26 +21,43 @@ import java.util.Optional;
 @RequestMapping("/api/plants")
 public class PlantController {
     private final PlantService plantService;
+    private final PlantImageService plantImageService;
     private final UserService userService;
+    private final RoleService roleService;
 
-    public PlantController(PlantService plantService, UserService userService) {
+    public PlantController(PlantService plantService, PlantImageService plantImageService, UserService userService, RoleService roleService) {
         this.plantService = plantService;
+        this.plantImageService = plantImageService;
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Plant>> getPlants(@RequestParam(name = "user", required = false) Optional<Long> userId){
+    public ResponseEntity<List<PlantResponseDTO>> getPlants(@RequestParam(name = "user", required = false) Optional<Long> userId){
+        List<Plant> plants;
         if(userId.isPresent()){
-            return new ResponseEntity<>(plantService.getPlantsByUser(userId.get()), HttpStatus.OK);
+            plants = plantService.getPlantsByUser(userId.get());
         }
         else{
-            return new ResponseEntity<>(plantService.getPlants(), HttpStatus.OK);
+            plants = plantService.getPlants();
         }
+
+        List<PlantResponseDTO> plantResponseDTOList = plants.stream().map(plant -> {
+            List<PlantImage> plantImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("user").getId());
+            List<PlantImage> plantKeeperImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("keeper").getId());
+            return PlantMapper.plantToDto(plant, plantImages, plantKeeperImages);
+        }).toList();
+
+        return new ResponseEntity<>(plantResponseDTOList, HttpStatus.OK);
     }
 
     @GetMapping("/{plantId}")
-    public ResponseEntity<Plant> getPlant(@PathVariable(name = "plantId") Long id){
-        return new ResponseEntity<>(plantService.getPlant(id), HttpStatus.OK);
+    public ResponseEntity<PlantResponseDTO> getPlant(@PathVariable(name = "plantId") Long id){
+        List<PlantImage> plantImages = plantImageService.getPlantImagesByPlantAndRole(id, roleService.getRoleByName("user").getId());
+        List<PlantImage> plantKeeperImages = plantImageService.getPlantImagesByPlantAndRole(id, roleService.getRoleByName("keeper").getId());
+        Plant plant = plantService.getPlant(id);
+        PlantResponseDTO plantResponseDTO = PlantMapper.plantToDto(plant, plantImages, plantKeeperImages);
+        return new ResponseEntity<>(plantResponseDTO, HttpStatus.OK);
     }
 
     @PostMapping

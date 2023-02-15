@@ -34,6 +34,8 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRole userRole = new UserRole();
         userRole.setUser(user);
         userRole.setRole(role);
+        System.out.println("User : " + user.getFirstName());
+        System.out.println("Role : " + role.getName());
         userRoleRepository.save(userRole);
     }
 

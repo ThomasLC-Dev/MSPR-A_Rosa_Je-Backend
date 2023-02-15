@@ -13,5 +13,5 @@ public class SlotDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private Long userId;
-    private Long guardianId;
+    private Long keeperId;
 }

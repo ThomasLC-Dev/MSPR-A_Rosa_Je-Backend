@@ -6,20 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "plant_images")
+public class PlantImage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "imageUrl")
+    private String imageUrl;
     @JsonIgnore
-    @OneToMany(mappedBy = "role")
-    private List<UserRole> userRoles;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "plant_id", referencedColumnName = "id")
+    private Plant plant;
 }
