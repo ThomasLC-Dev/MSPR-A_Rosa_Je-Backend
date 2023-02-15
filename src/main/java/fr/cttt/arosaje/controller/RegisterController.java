@@ -34,12 +34,17 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDTO){
-        if(registerDTO.getPassword().equals(registerDTO.getPasswordConfirmation())){
-            UserDTO userDTO = new UserDTO(registerDTO.getLastName(), registerDTO.getFirstName(), registerDTO.getEmail(), registerDTO.getPassword(), registerDTO.getStatus());
-            User user = userService.saveUser(userDTO);
-            AddressDTO addressDTO = new AddressDTO(registerDTO.getAddress(), registerDTO.getPostalCode(), registerDTO.getCity(), user.getId());
-            addressService.saveAddress(addressDTO, user);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        if(!userService.checkUserExist(registerDTO.getEmail())){
+            if(registerDTO.getPassword().equals(registerDTO.getPasswordConfirmation())){
+                UserDTO userDTO = new UserDTO(registerDTO.getLastName(), registerDTO.getFirstName(), registerDTO.getEmail(), registerDTO.getPassword(), registerDTO.getStatus());
+                User user = userService.saveUser(userDTO);
+                AddressDTO addressDTO = new AddressDTO(registerDTO.getAddress(), registerDTO.getPostalCode(), registerDTO.getCity(), user.getId());
+                addressService.saveAddress(addressDTO, user);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            }
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -48,10 +53,12 @@ public class RegisterController {
 
     @PostMapping("/forgot-password/request")
     public ResponseEntity<?> forgotPasswordRequest(@RequestParam(name = "email") String email){
-        User user = userService.getUserByEmail(email);
-        forgotPasswordTokenService.deleteForgotPasswordTokenByUser(user);
-        ForgotPasswordToken forgotPasswordToken = forgotPasswordTokenService.saveForgotPasswordToken(user);
-        System.out.println(forgotPasswordToken.getToken());
+        if(userService.checkUserExist(email)){
+            User user = userService.getUserByEmail(email);
+            forgotPasswordTokenService.deleteForgotPasswordTokenByUser(user);
+            ForgotPasswordToken forgotPasswordToken = forgotPasswordTokenService.saveForgotPasswordToken(user);
+            System.out.println(forgotPasswordToken.getToken());
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

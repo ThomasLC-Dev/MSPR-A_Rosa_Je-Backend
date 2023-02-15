@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean checkUserExist(String email){
+        User user = userRepository.findByEmail(email).orElse(null);
+        return user != null;
+    }
+
+    @Override
     public User saveUser(UserDTO userDTO) {
         User user = new User();
         user.setLastName(userDTO.getLastName());
