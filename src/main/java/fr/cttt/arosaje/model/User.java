@@ -28,7 +28,7 @@ public class User {
     private String password;
     @Column(name = "status")
     private Boolean status;
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
     @OneToOne(mappedBy = "user")
     private Address address;

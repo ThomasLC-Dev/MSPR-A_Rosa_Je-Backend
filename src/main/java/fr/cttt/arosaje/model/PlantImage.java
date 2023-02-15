@@ -16,7 +16,7 @@ public class PlantImage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
     @JsonIgnore
     @ManyToOne
