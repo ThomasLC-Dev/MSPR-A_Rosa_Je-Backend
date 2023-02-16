@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     private String lastName;
     private String firstName;
+    private String phone;
     private String email;
     private String password;
     private String status;

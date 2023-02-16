@@ -12,5 +12,5 @@ public interface AddressService {
     void saveAddress(AddressDTO addressDTO, User user);
     void updateAddress(Long id, AddressDTO addressDTO, User user);
     void deleteAddress(Long id);
-    float[] getGeocodeFromAddress(String address, String postalCode, String city);
+    float[] getGeocodeFromAddress(Integer roadNumber, String roadType, String road, String additionalAddress, String postalCode, String city);
 }

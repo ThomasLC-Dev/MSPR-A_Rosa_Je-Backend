@@ -10,11 +10,15 @@ import lombok.NoArgsConstructor;
 public class RegisterDTO {
     private String lastName;
     private String firstName;
+    private String phone;
     private String email;
     private String password;
     private String passwordConfirmation;
     private String status;
-    private String address;
+    private Integer roadNumber;
+    private String roadType;
+    private String road;
+    private String additionalAddress;
     private String postalCode;
     private String city;
 }

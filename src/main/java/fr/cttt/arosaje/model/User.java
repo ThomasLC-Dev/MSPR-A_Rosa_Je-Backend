@@ -21,6 +21,8 @@ public class User {
     private String lastName;
     @Column(name = "first_name")
     private String firstName;
+    @Column(name = "phone")
+    private String phone;
     @Column(name = "email")
     private String email;
     @JsonIgnore

@@ -36,9 +36,9 @@ public class RegisterController {
     public ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDTO){
         if(!userService.checkUserExist(registerDTO.getEmail())){
             if(registerDTO.getPassword().equals(registerDTO.getPasswordConfirmation())){
-                UserDTO userDTO = new UserDTO(registerDTO.getLastName(), registerDTO.getFirstName(), registerDTO.getEmail(), registerDTO.getPassword(), registerDTO.getStatus());
+                UserDTO userDTO = new UserDTO(registerDTO.getLastName(), registerDTO.getFirstName(), registerDTO.getPhone(), registerDTO.getEmail(), registerDTO.getPassword(), registerDTO.getStatus());
                 User user = userService.saveUser(userDTO);
-                AddressDTO addressDTO = new AddressDTO(registerDTO.getAddress(), registerDTO.getPostalCode(), registerDTO.getCity(), user.getId());
+                AddressDTO addressDTO = new AddressDTO(registerDTO.getRoadNumber(), registerDTO.getRoadType(), registerDTO.getRoad(), registerDTO.getAdditionalAddress(), registerDTO.getPostalCode(), registerDTO.getCity(), user.getId());
                 addressService.saveAddress(addressDTO, user);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }

@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setLastName(userDTO.getLastName());
         user.setFirstName(userDTO.getFirstName());
+        user.setPhone(userDTO.getPhone());
         user.setEmail(userDTO.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         user.setStatus(userDTO.getStatus().equals("true"));
@@ -58,6 +59,7 @@ public class UserServiceImpl implements UserService {
         User user = this.getUser(id);
         user.setLastName((userDTO.getLastName() == null) ? user.getLastName() : userDTO.getLastName());
         user.setFirstName((userDTO.getFirstName() == null) ? user.getFirstName() : userDTO.getFirstName());
+        user.setPhone((userDTO.getPhone() == null) ? user.getPhone() : userDTO.getPhone());
         user.setEmail((userDTO.getEmail() == null) ? user.getEmail() : userDTO.getEmail());
         user.setStatus((userDTO.getStatus() == null) ? user.getStatus() : (userDTO.getStatus().equals("true")));
         userRepository.save(user);
