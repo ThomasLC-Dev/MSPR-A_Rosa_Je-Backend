@@ -30,4 +30,9 @@ public class RoleServiceImpl implements RoleService {
     public Role getRoleByName(String name) {
         return roleRepository.findByName(name).orElseThrow(() -> new ElementNotFoundException("Role not found"));
     }
+
+    @Override
+    public void saveRole(Role role) {
+        roleRepository.save(role);
+    }
 }

@@ -1,6 +1,6 @@
 package fr.cttt.arosaje.model;
 
-import fr.cttt.arosaje.model.id.UserRoleId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,12 +13,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_roles")
 public class UserRole {
-    @EmbeddedId
-    private UserRoleId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 }

@@ -1,15 +1,14 @@
 package fr.cttt.arosaje.controller;
 
 import fr.cttt.arosaje.model.ForgotPasswordToken;
+import fr.cttt.arosaje.model.Role;
 import fr.cttt.arosaje.model.User;
 import fr.cttt.arosaje.model.dto.AddressDTO;
 import fr.cttt.arosaje.model.dto.RegisterDTO;
 import fr.cttt.arosaje.model.dto.UpdatePasswordDTO;
 import fr.cttt.arosaje.model.dto.UserDTO;
 import fr.cttt.arosaje.repository.UserRepository;
-import fr.cttt.arosaje.service.AddressService;
-import fr.cttt.arosaje.service.ForgotPasswordTokenService;
-import fr.cttt.arosaje.service.UserService;
+import fr.cttt.arosaje.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,13 +18,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class RegisterController {
     private final UserService userService;
+    private final UserRoleService userRoleService;
+    private final RoleService roleService;
     private final UserRepository userRepository;
     private final AddressService addressService;
     private final ForgotPasswordTokenService forgotPasswordTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public RegisterController(UserService userService, UserRepository userRepository, AddressService addressService, ForgotPasswordTokenService forgotPasswordTokenService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public RegisterController(UserService userService, UserRoleService userRoleService, RoleService roleService, UserRepository userRepository, AddressService addressService, ForgotPasswordTokenService forgotPasswordTokenService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
+        this.userRoleService = userRoleService;
+        this.roleService = roleService;
         this.userRepository = userRepository;
         this.addressService = addressService;
         this.forgotPasswordTokenService = forgotPasswordTokenService;
@@ -40,6 +43,9 @@ public class RegisterController {
                 User user = userService.saveUser(userDTO);
                 AddressDTO addressDTO = new AddressDTO(registerDTO.getRoadNumber(), registerDTO.getRoadType(), registerDTO.getRoad(), registerDTO.getAdditionalAddress(), registerDTO.getPostalCode(), registerDTO.getCity(), user.getId());
                 addressService.saveAddress(addressDTO, user);
+                for(Long roleId : registerDTO.getUserRoles()){
+                    userRoleService.saveUserRole(user, roleService.getRole(roleId));
+                }
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
             else{

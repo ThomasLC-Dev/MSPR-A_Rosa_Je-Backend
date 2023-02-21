@@ -21,4 +21,5 @@ public class RegisterDTO {
     private String additionalAddress;
     private String postalCode;
     private String city;
+    private Long[] userRoles;
 }
