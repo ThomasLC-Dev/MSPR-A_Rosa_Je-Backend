@@ -20,7 +20,7 @@ public class Plant {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "problems")
+    @Column(name = "advises")
     private String advises;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

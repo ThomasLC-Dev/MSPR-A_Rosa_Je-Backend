@@ -44,8 +44,8 @@ public class PlantController {
         }
 
         List<PlantResponseDTO> plantResponseDTOList = plants.stream().map(plant -> {
-            List<PlantImage> plantImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("user").getId());
-            List<PlantImage> plantKeeperImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("keeper").getId());
+            List<PlantImage> plantImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("Customer").getId());
+            List<PlantImage> plantKeeperImages = plantImageService.getPlantImagesByPlantAndRole(plant.getId(), roleService.getRoleByName("Keeper").getId());
             return PlantMapper.plantToDto(plant, plantImages, plantKeeperImages);
         }).collect(Collectors.toList());
 
