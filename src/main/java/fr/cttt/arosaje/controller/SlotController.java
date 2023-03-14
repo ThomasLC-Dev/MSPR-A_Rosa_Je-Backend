@@ -44,7 +44,7 @@ public class SlotController {
     @PostMapping
     public ResponseEntity<?> createSlot(@RequestBody SlotDTO slotDTO){
         User user = userService.getUser(slotDTO.getUserId());
-        User guardian = (slotDTO.getUserId() == null) ? null : userService.getUser(slotDTO.getKeeperId());
+        User guardian = (slotDTO.getKeeperId() == null) ? null : userService.getUser(slotDTO.getKeeperId());
         slotService.saveSlot(slotDTO, user, guardian);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
