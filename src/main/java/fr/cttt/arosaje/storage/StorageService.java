@@ -38,12 +38,13 @@ public class StorageService {
         return convertedFile;
     }
 
-    public File retriveDb() throws IOException {
-        S3Object dbObject = S3Client.getObject(new GetObjectRequest(bucketName, "arosaje.db"));
-        S3ObjectInputStream dbObjectStream = dbObject.getObjectContent();
-        File dbFile = new File("arosaje.db");
-        FileUtils.copyInputStreamToFile(dbObjectStream, dbFile);
-        return dbFile;
+    public void retriveDb() throws IOException {
+        if(S3Client.doesObjectExist(bucketName, "arosaje.db")){
+            S3Object dbObject = S3Client.getObject(new GetObjectRequest(bucketName, "arosaje.db"));
+            S3ObjectInputStream dbObjectStream = dbObject.getObjectContent();
+            File dbFile = new File("arosaje.db");
+            FileUtils.copyInputStreamToFile(dbObjectStream, dbFile);
+        }
     }
 
     public void saveDb(File dbFile){
