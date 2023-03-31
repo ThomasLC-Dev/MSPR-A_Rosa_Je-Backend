@@ -1,8 +1,8 @@
 package fr.cttt.arosaje;
 
 import fr.cttt.arosaje.model.Role;
-import fr.cttt.arosaje.repository.RoleRepository;
 import fr.cttt.arosaje.service.RoleService;
+import fr.cttt.arosaje.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,17 +15,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.PreDestroy;
+import java.io.File;
+import java.io.IOException;
+
 @SpringBootApplication
 public class ArosajeApplication implements CommandLineRunner {
 	private final RoleService roleService;
 
-	public ArosajeApplication(RoleService roleService) {
+	private final StorageService storageService;
+
+	public ArosajeApplication(RoleService roleService, StorageService storageService) throws IOException {
 		this.roleService = roleService;
+		this.storageService = storageService;
+		this.storageService.retriveDb();
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ArosajeApplication.class, args);
 	}
+
+	@PreDestroy
+	public void onStop(){
+		this.storageService.saveDb(new File("arosaje.db"));
+	}
+
 	@Bean
 	BCryptPasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
