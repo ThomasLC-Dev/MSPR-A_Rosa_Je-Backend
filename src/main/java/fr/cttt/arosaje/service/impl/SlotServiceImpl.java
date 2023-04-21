@@ -54,7 +54,7 @@ public class SlotServiceImpl implements SlotService {
         slot.setStartDate((slotDTO.getStartDate() == null) ? slot.getStartDate() : slotDTO.getStartDate());
         slot.setEndDate((slotDTO.getEndDate() == null) ? slot.getEndDate() : slotDTO.getEndDate());
         slot.setUser((user == null) ? slot.getUser() : user);
-        slot.setKeeper((keeper == null) ? slot.getKeeper() : keeper);
+        slot.setKeeper(keeper);
         slotRepository.save(slot);
     }
 
