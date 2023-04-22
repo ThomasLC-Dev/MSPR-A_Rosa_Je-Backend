@@ -37,7 +37,7 @@ public class ArosajeApplication implements CommandLineRunner {
 
 	@PreDestroy
 	public void onStop(){
-		//this.storageService.saveDb(new File("arosaje.db"));
+		this.storageService.saveDb(new File("arosaje.db"));
 	}
 
 	@Bean
