@@ -13,6 +13,12 @@ public class PlantMapper {
         plantResponseDTO.setName(plant.getName());
         plantResponseDTO.setDescription(plant.getDescription());
         plantResponseDTO.setAdvises(plant.getAdvises());
+        plantResponseDTO.setSunLight(plant.getSunLight());
+        plantResponseDTO.setLowerTemp(plant.getLowerTemp());
+        plantResponseDTO.setHigherTemp(plant.getHigherTemp());
+        plantResponseDTO.setWateringQuantity(plant.getWateringQuantity());
+        plantResponseDTO.setWateringFrequency(plant.getWateringFrequency());
+        plantResponseDTO.setWateringContainer(plant.getWateringContainer());
         plantResponseDTO.setUser(plant.getUser());
         plantResponseDTO.setImagesUrl(plantImages);
         plantResponseDTO.setKeeperImagesUrl(plantKeeperImages);
