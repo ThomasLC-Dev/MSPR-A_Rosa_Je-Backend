@@ -22,6 +22,18 @@ public class Plant {
     private String description;
     @Column(name = "advises")
     private String advises;
+    @Column(name = "sunLight")
+    private Integer sunLight;
+    @Column(name = "lowerTemp")
+    private Double lowerTemp;
+    @Column(name = "higherTemp")
+    private Double higherTemp;
+    @Column(name = "wateringQuantity")
+    private Double wateringQuantity;
+    @Column(name = "wateringFrequency")
+    private Integer wateringFrequency;
+    @Column(name = "wateringContainer")
+    private String wateringContainer;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

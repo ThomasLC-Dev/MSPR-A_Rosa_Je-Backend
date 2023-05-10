@@ -39,6 +39,12 @@ public class PlantServiceImpl implements PlantService {
         plant.setName(plantDTO.getName());
         plant.setDescription(plantDTO.getDescription());
         plant.setAdvises(plantDTO.getAdvises());
+        plant.setSunLight(plantDTO.getSunLight());
+        plant.setLowerTemp(plantDTO.getLowerTemp());
+        plant.setHigherTemp(plantDTO.getHigherTemp());
+        plant.setWateringQuantity(plantDTO.getWateringQuantity());
+        plant.setWateringFrequency(plantDTO.getWateringFrequency());
+        plant.setWateringContainer(plantDTO.getWateringContainer());
         plant.setUser(user);
         plantRepository.save(plant);
     }
@@ -49,6 +55,12 @@ public class PlantServiceImpl implements PlantService {
         plant.setName((plantDTO.getName() == null) ? plant.getName() : plantDTO.getName());
         plant.setDescription((plantDTO.getDescription() == null) ? plant.getDescription() : plantDTO.getDescription());
         plant.setAdvises((plantDTO.getAdvises() == null) ? plant.getAdvises() : plantDTO.getAdvises());
+        plant.setSunLight((plantDTO.getSunLight() == null) ? plant.getSunLight() : plantDTO.getSunLight());
+        plant.setLowerTemp((plantDTO.getLowerTemp() == null) ? plant.getLowerTemp() : plantDTO.getLowerTemp());
+        plant.setHigherTemp((plantDTO.getHigherTemp() == null) ? plant.getHigherTemp() : plantDTO.getHigherTemp());
+        plant.setWateringQuantity((plantDTO.getWateringQuantity() == null) ? plant.getWateringQuantity() : plantDTO.getWateringQuantity());
+        plant.setWateringFrequency((plantDTO.getWateringFrequency() == null) ? plant.getWateringFrequency() : plantDTO.getWateringFrequency());
+        plant.setWateringContainer((plantDTO.getWateringContainer() == null) ? plant.getWateringContainer() : plantDTO.getWateringContainer());
         plant.setUser((user == null) ? plant.getUser() : user);
         plantRepository.save(plant);
     }
