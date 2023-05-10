@@ -22,17 +22,17 @@ public class Plant {
     private String description;
     @Column(name = "advises")
     private String advises;
-    @Column(name = "sunLight")
+    @Column(name = "sun_light")
     private Integer sunLight;
-    @Column(name = "lowerTemp")
+    @Column(name = "lower_temp")
     private Double lowerTemp;
-    @Column(name = "higherTemp")
+    @Column(name = "higher_temp")
     private Double higherTemp;
-    @Column(name = "wateringQuantity")
+    @Column(name = "watering_quantity")
     private Double wateringQuantity;
-    @Column(name = "wateringFrequency")
+    @Column(name = "watering_frequency")
     private Integer wateringFrequency;
-    @Column(name = "wateringContainer")
+    @Column(name = "watering_container")
     private String wateringContainer;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
