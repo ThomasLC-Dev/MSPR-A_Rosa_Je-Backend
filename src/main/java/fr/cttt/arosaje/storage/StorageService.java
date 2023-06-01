@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class StorageService {
@@ -22,7 +23,7 @@ public class StorageService {
 
     public String uploadFile(MultipartFile multipartFile, String type, Long id){
         File file = this.convertMultiPartFileToFile(multipartFile);
-        String fileName = type + "/" + System.currentTimeMillis() + "_" + type + "_" + id;
+        String fileName = type + "/" + System.currentTimeMillis() + "_" + type + "_" + id + UUID.randomUUID();
         PutObjectResult uploadResult = S3Client.putObject(new PutObjectRequest(bucketName, fileName, file));
         file.delete();
         return "https://arosaje.s3.eu-west-3.amazonaws.com/" + fileName;
