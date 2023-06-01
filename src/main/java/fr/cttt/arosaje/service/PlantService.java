@@ -10,7 +10,7 @@ public interface PlantService {
     List<Plant> getPlants();
     List<Plant> getPlantsByUser(Long userId);
     Plant getPlant(Long id);
-    void savePlant(PlantDTO plantDTO, User user);
+    Plant savePlant(PlantDTO plantDTO, User user);
     void updatePlant(Long id, PlantDTO plantDTO, User user);
     void deletePlant(Long id);
 }

@@ -62,10 +62,10 @@ public class PlantController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPlant(@RequestBody PlantDTO plantDTO){
+    public ResponseEntity<Plant> createPlant(@RequestBody PlantDTO plantDTO){
         User user = userService.getUser(plantDTO.getUserId());
-        plantService.savePlant(plantDTO, user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Plant plant = plantService.savePlant(plantDTO, user);
+        return new ResponseEntity<>(plant, HttpStatus.CREATED);
     }
 
     @PutMapping("/{plantId}")

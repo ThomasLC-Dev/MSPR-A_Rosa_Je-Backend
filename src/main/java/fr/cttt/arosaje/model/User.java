@@ -45,4 +45,13 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "keeper")
     private List<Slot> keeperSlots;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Chat> userChats;
+    @JsonIgnore
+    @OneToMany(mappedBy = "keeper")
+    private List<Chat> keeperChats;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Message> userMessages;
 }

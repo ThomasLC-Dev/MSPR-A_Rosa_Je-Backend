@@ -28,7 +28,7 @@ public class ArosajeApplication implements CommandLineRunner {
 	public ArosajeApplication(RoleService roleService, StorageService storageService) throws IOException {
 		this.roleService = roleService;
 		this.storageService = storageService;
-		this.storageService.retriveDb();
+		//this.storageService.retriveDb();
 	}
 
 	public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class ArosajeApplication implements CommandLineRunner {
 
 	@PreDestroy
 	public void onStop(){
-		this.storageService.saveDb(new File("arosaje.db"));
+		//this.storageService.saveDb(new File("arosaje.db"));
 	}
 
 	@Bean

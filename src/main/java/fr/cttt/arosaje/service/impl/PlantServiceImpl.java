@@ -34,7 +34,7 @@ public class PlantServiceImpl implements PlantService {
     }
 
     @Override
-    public void savePlant(PlantDTO plantDTO, User user) {
+    public Plant savePlant(PlantDTO plantDTO, User user) {
         Plant plant = new Plant();
         plant.setName(plantDTO.getName());
         plant.setDescription(plantDTO.getDescription());
@@ -46,7 +46,7 @@ public class PlantServiceImpl implements PlantService {
         plant.setWateringFrequency(plantDTO.getWateringFrequency());
         plant.setWateringContainer(plantDTO.getWateringContainer());
         plant.setUser(user);
-        plantRepository.save(plant);
+        return plantRepository.save(plant);
     }
 
     @Override
