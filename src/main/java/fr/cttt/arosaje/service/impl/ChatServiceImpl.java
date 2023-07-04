@@ -33,7 +33,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Chat saveChat(ChatDTO chatDTO, User user, User keeper) {
-        if(chatAlreadyExist(user.getId(), keeper.getId()));
+        if(chatAlreadyExist(user.getId(), keeper.getId())) return null;
         Chat chat = new Chat();
         chat.setLastUpdate(new Date());
         chat.setUser(user);
