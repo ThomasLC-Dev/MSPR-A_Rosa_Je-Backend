@@ -12,4 +12,5 @@ public interface ChatService {
     Chat saveChat(ChatDTO chatDTO, User user, User keeper);
     void updateChat(Long id);
     void deleteChat(Long id);
+    boolean chatAlreadyExist(Long userId, Long keeperId);
 }

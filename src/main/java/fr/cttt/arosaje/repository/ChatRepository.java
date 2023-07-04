@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
     Optional<List<Chat>> findAllByUserIdOrKeeperIdOrderByLastUpdateDesc(Long userId, Long keeperId);
+    Optional<Chat> findChatByUserIdAndKeeperId(Long userId, Long keeperId);
 }

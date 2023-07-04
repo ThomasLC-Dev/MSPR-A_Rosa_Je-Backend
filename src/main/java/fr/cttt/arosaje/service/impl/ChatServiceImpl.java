@@ -33,6 +33,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Chat saveChat(ChatDTO chatDTO, User user, User keeper) {
+        if(chatAlreadyExist(user.getId(), keeper.getId()));
         Chat chat = new Chat();
         chat.setLastUpdate(new Date());
         chat.setUser(user);
@@ -49,5 +50,17 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public void deleteChat(Long id) {
         chatRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean chatAlreadyExist(Long userId, Long keeperId) {
+        Chat chat1 = chatRepository.findChatByUserIdAndKeeperId(userId, keeperId).orElse(null);
+        Chat chat2 = chatRepository.findChatByUserIdAndKeeperId(keeperId, userId).orElse(null);
+        if(chat1 != null || chat2 != null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
